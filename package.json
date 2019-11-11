@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/chi505/jssandbox#readme",
   "devDependencies": {
-    "typescript": "^3.7.2"
+    "browserify": "^16.5.0",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.1",
+    "tsify": "^4.0.1",
+    "typescript": "^3.7.2",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
