@@ -1,0 +1,23 @@
+{
+  "name": "jssandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chi505/jssandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chi505/jssandbox/issues"
+  },
+  "homepage": "https://github.com/chi505/jssandbox#readme",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
+}
