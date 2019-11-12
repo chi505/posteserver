@@ -4,12 +4,7 @@ import {sample} from 'underscore';
 function showState(divName: string, fighter1: Fighter, fighter2:Fighter) {
     const elt = document.getElementById(divName);
 
-    elt.innerText += guards.Poste.all_poste.length
-    elt.innerText += fighter1.name + " is fighting " + fighter2.name + "\n";
-    let poste: guards.Poste = fighter1.currentGuard;
-    elt.innerText += poste.weight;
-    
-    elt.innerText += fighter2.currentGuard.level;
+    elt.innerText = fighter1.toString() + "\n" + fighter2.toString();
 }
 
 class Fighter {
@@ -20,6 +15,9 @@ class Fighter {
         };
     currentGuard: guards.Poste;
     legalPoste: guards.Poste[];
+    toString(): string{
+        return this.name + ": " + this.currentGuard.toString() + "\n"
+    };
 }
 
 let Alice = new Fighter('Alice');
