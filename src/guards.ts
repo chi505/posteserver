@@ -1,3 +1,5 @@
+import { tcs } from "./tcs";
+
 //this is basically a config file
 
 export type FW = 'front-weighted';
@@ -16,6 +18,14 @@ export type Level = HI | LO | MID;
 
 export type PointPosition = 'on-line' | 'off-line' | 'di-donna';
 
+type Guard =  {
+    readonly name: string,
+                readonly weight: Weightedness,
+                readonly side: Sidedness, 
+                readonly level: Level,
+                readonly pointpos: PointPosition
+}
+
 export class Poste {
     constructor(readonly name: string,
                 readonly weight: Weightedness,
@@ -33,9 +43,13 @@ export class Poste {
     }
 }
 
+type PosteAlias = Poste;
+
+export let dummyPoste: Guard = {name: "dummy", weight: 'front-weighted', side: 'offside', level: 'high-line', pointpos: 'di-donna'};
+
 export class PosteDiDonna extends Poste {
     constructor(weight: Weightedness, side: Sidedness){
-        super(side+ " " + weight+" di-donna", weight, side, 'high-line', 'di-donna');
+        super(tcs(side)+ " " + tcs(weight) + " Di-Donna", weight, side, 'high-line', 'di-donna');
     }
 }
 
@@ -56,3 +70,4 @@ export const PosteTuttePortaDiFerro = new Poste('Tutte Porta Di Ferro',
      'dominant',
       'low-line',
       'off-line');
+
