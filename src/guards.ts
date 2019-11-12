@@ -1,13 +1,12 @@
+//this is basically a config file
 
 export type FW = 'front-weighted';
 export type BW = 'back-weighted';
-
 export type Weightedness = FW | BW;
 
 export type R = 'dominant';
 export type L = 'offside';
 export type C = 'center'
-
 export type Sidedness = R | L | C;
 
 export type HI = 'high-line';
@@ -30,7 +29,7 @@ export class Poste {
                 this.weight + ", " +
                 this.side + ", " + 
                 this.level + ", " + 
-                this.pointpos;
+                this.pointpos + "\n";
     }
 }
 
@@ -44,32 +43,16 @@ export class BackweightedPosteDiDonna extends PosteDiDonna {
     constructor(side: Sidedness){super('back-weighted', side);}
 }
 
-export let DominantSidePosteLonge = new Poste('Poste Longe','front-weighted', 'dominant', 'middle', 'on-line');
+export const DominantSidePosteLonge = new Poste('Poste Longe','front-weighted', 'dominant', 'middle', 'on-line');
 
-export let PosteFrontale = new Poste('Frontale','front-weighted','center', 'high-line', 'on-line');
+export const PosteFrontale = new Poste('Frontale','front-weighted','center', 'high-line', 'on-line');
 
-export let DominantBackweightedPosteDiDonna = new BackweightedPosteDiDonna('dominant');
+export const DominantBackweightedPosteDiDonna = new BackweightedPosteDiDonna('dominant');
 
+export const OffsideBackweightedPosteDiDonna = new BackweightedPosteDiDonna('offside');
 
-export let PosteTuttePortaDiFerro = new Poste('Tutte Porta Di Ferro',
+export const PosteTuttePortaDiFerro = new Poste('Tutte Porta Di Ferro',
     'front-weighted',
      'dominant',
       'low-line',
       'off-line');
-
-export interface Guard{
-    name: string;
-}
-
-export interface PointForwardGuard extends Guard{
-    thrust() : void;
-}
-
-export interface ForwardWeightedGuard extends Guard{
-    shiftWeight(): void;
-}
-export interface BackWeightedGuard extends Guard{
-    shiftWeight(): void;
-}
-
-export interface DominantSideGuard extends Guard{}

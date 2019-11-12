@@ -5,6 +5,9 @@ function showState(divName: string, fighter1: Fighter, fighter2:Fighter) {
     const elt = document.getElementById(divName);
 
     elt.innerText = fighter1.toString() + "\n" + fighter2.toString();
+    guards.Poste.all_poste.forEach(element => {
+    elt.innerText += element.toString();        
+    });
 }
 
 class Fighter {
