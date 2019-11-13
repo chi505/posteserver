@@ -1,6 +1,6 @@
 {
     "files": [
-        "src/main.ts"
+        "src/main.ts", "src/actions.ts", "src/Fighter.ts"
     ],
     "compilerOptions": {
         "noImplicitAny": true,

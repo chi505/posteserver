@@ -6,6 +6,7 @@ export class Fighter {
     constructor(readonly name: string) {
         this.legalPoste = guards.Poste.all_poste;
         this.currentGuard = sample(this.legalPoste);
+        this.knownActions = actions.all_actions;
     }
     
     currentGuard: guards.Poste;

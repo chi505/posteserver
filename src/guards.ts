@@ -59,6 +59,8 @@ export class BackweightedPosteDiDonna extends PosteDiDonna {
 
 export const DominantSidePosteLonge = new Poste('Poste Longe','front-weighted', 'dominant', 'middle', 'on-line');
 
+export const OffsidePosteLonge = new Poste('Poste Longe Offside', 'front-weighted','offside','middle','on-line');
+
 export const PosteFrontale = new Poste('Frontale','front-weighted','center', 'high-line', 'on-line');
 
 export const DominantBackweightedPosteDiDonna = new BackweightedPosteDiDonna('dominant');

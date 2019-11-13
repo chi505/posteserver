@@ -1,5 +1,7 @@
 import * as guards from './guards';
-import {sample} from 'underscore';
+import { Fighter } from './Fighter';
+import * as actions from './actions';
+import * as _ from 'underscore';
 
 function showState(divName: string, fighter1: Fighter, fighter2:Fighter) {
     const elt = document.getElementById(divName);
@@ -8,19 +10,12 @@ function showState(divName: string, fighter1: Fighter, fighter2:Fighter) {
     guards.Poste.all_poste.forEach(element => {
     elt.innerText += element.toString();        
     });
-}
+    let agentAction: actions.Action = _.sample(fighter1.knownActions);
+    let patientAction: actions.Action = _.sample(fighter2.knownActions);
+    elt.innerText += fighter1.name +": "+agentAction.name  + "\n";
+    elt.innerText += fighter2.name +": "+patientAction.name  + "\n";
 
-class Fighter {
-    constructor(readonly name: string)
-        {
-            this.legalPoste = guards.Poste.all_poste;
-            this.currentGuard = sample(this.legalPoste);
-        };
-    currentGuard: guards.Poste;
-    legalPoste: guards.Poste[];
-    toString(): string{
-        return this.name + ": " + this.currentGuard.toString() + "\n"
-    };
+    elt.innerText += actions.resolveAction(agentAction, patientAction);
 }
 
 let Alice = new Fighter('Alice');
