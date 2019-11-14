@@ -1,47 +1,47 @@
-import * as guards from './guards';
+import * as guards from "./guards";
 
-export function resolveAction(agentAction: Action, patientAction: Action): 'Agent wins.' | 'Patient wins.' | 'No change.' | 'Two dead idiots.' {
-    if (agentAction.kind === 'parry') {return 'No change.';}
-    if (agentAction.kind === 'thrust' && patientAction.kind === 'thrust'){return 'Two dead idiots.';};
-    if (patientAction.canCounter(agentAction)){
-        return 'Patient wins.';
+export function resolveAction(agentAction: Action, patientAction: Action): "Agent wins." | "Patient wins." | "No change." | "Two dead idiots." {
+    if (agentAction.kind === "parry") {return "No change."; }
+    if (agentAction.kind === "thrust" && patientAction.kind === "thrust") {return "Two dead idiots."; }
+    if (patientAction.canCounter(agentAction)) {
+        return "Patient wins.";
     }
-    return 'Agent wins.';
+    return "Agent wins.";
 }
 
-export interface Action  {
-    kind: 'cut' | 'thrust' | 'parry';
-    name?: string;
+export interface Action {
     initialGuard: guards.Poste;
+    kind: "cut" | "thrust" | "parry";
+    name?: string;
     terminalGuard: guards.Poste;
     medialGuard?: guards.Poste;
-    canCounter?: (action: Action)=>boolean;
-};
+    canCounter?: (action: Action) => boolean;
+}
 
 export let all_actions: Action[] = [];
 
 export let MandritoFendente: Action = {
-    kind: 'cut',
-    name: 'Mandrito Fendente',
     initialGuard: guards.DominantBackweightedPosteDiDonna,
+    kind: "cut",
+    name: "Mandrito Fendente",
     terminalGuard: guards.DominantSidePosteLonge,
-    canCounter: (action: Action)=>{return action !== MandritoFalso;}
+    canCounter: (action: Action) => action !== MandritoFalso
 };
 all_actions.push(MandritoFendente);
 
 export let CoverteInFrontale: Action = {
-    kind: 'parry',
-    name: 'Coverte in Frontale',
     initialGuard: guards.DominantBackweightedPosteDiDonna,
+    kind: "parry",
+    name: "Coverte in Frontale",
     terminalGuard: guards.PosteFrontale,
-    canCounter: (action: Action)=>{return [MandritoFendente, MandritoFalso].includes(action)}
-}
+    canCounter: (action: Action) => [MandritoFendente, MandritoFalso].includes(action)
+};
 export let MandritoFalso: Action = {
-    kind: 'cut',
-    name: 'Mandrito Falso',
     initialGuard: guards.OffsideBackweightedPosteDiDonna,
+    kind: "cut",
+    name: "Mandrito Falso",
     terminalGuard: guards.OffsidePosteLonge,
-    canCounter: (action: Action)=>{return action !== MandritoFendente;}
-}
+    canCounter: (action: Action) => action !== MandritoFendente
+};
 all_actions.push(CoverteInFrontale);
-all_actions.push(MandritoFalso)
+all_actions.push(MandritoFalso);

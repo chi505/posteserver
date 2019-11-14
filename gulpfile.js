@@ -25,7 +25,7 @@ function bundle() {
     return watchedBrowserify
         .bundle()
         .on('error', fancy_log)
-        .pipe(source('bundle.js'))
+        .pipe(source('index.js'))
         .pipe(gulp.dest('dist'));
 }
 

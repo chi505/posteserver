@@ -1,25 +1,39 @@
-import * as guards from './guards';
-import { Fighter } from './Fighter';
-import * as actions from './actions';
-import * as _ from 'underscore';
+import express from "express";
+import * as _ from "underscore";
+import * as actions from "./actions";
+import { Fighter } from "./Fighter";
+import * as guards from "./guards";
 
-function showState(divName: string, fighter1: Fighter, fighter2:Fighter) {
-    const elt = document.getElementById(divName);
+function showState(fighter1: Fighter, fighter2: Fighter): string {
+    let retval: string = "";
 
-    elt.innerText = fighter1.toString() + "\n" + fighter2.toString();
-    guards.Poste.all_poste.forEach(element => {
-    elt.innerText += element.toString();        
+    retval = fighter1.toString() + "\n" + fighter2.toString();
+    guards.Poste.all_poste.forEach((element) => {
+    retval += element.toString();
     });
-    let agentAction: actions.Action = _.sample(fighter1.knownActions);
-    let patientAction: actions.Action = _.sample(fighter2.knownActions);
-    elt.innerText += fighter1.name +": "+agentAction.name  + "\n";
-    elt.innerText += fighter2.name +": "+patientAction.name  + "\n";
+    const agentAction: actions.Action = _.sample(fighter1.knownActions);
+    const patientAction: actions.Action = _.sample(fighter2.knownActions);
+    retval += fighter1.name + ": " + agentAction.name  + "\n";
+    retval += fighter2.name + ": " + patientAction.name  + "\n";
 
-    elt.innerText += actions.resolveAction(agentAction, patientAction);
+    retval += actions.resolveAction(agentAction, patientAction);
+    return retval;
 }
 
-let Alice = new Fighter('Alice');
-let Bob = new Fighter ('Bob');
+const Alice = new Fighter("Alice");
+const Bob = new Fighter ("Bob");
+console.log(guards.Poste.all_poste);
 
-showState('greeting', Alice, Bob);
-console.log(guards.Poste.all_poste)
+const app = express();
+const port = 8080; // default port to listen
+
+// define a route handler for the default home page
+app.get( "/", ( req, res ) => {
+    res.send( showState(Alice, Bob));
+} );
+
+// start the Express server
+app.listen( port, () => {
+    // tslint:disable-next-line:noconsole
+    console.log( `server started at http://localhost:${ port }` );
+} );
