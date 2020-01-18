@@ -1,39 +1,23 @@
 import express from "express";
-import * as _ from "underscore";
-import * as actions from "./actions";
 import { Fighter } from "./Fighter";
-import * as guards from "./guards";
+import { showState } from "./showState";
 
-function showState(fighter1: Fighter, fighter2: Fighter): string {
-    let retval: string = "";
-
-    retval = fighter1.toString() + "\n" + fighter2.toString();
-    guards.Poste.all_poste.forEach((element) => {
-    retval += element.toString();
-    });
-    const agentAction: actions.Action = _.sample(fighter1.knownActions);
-    const patientAction: actions.Action = _.sample(fighter2.knownActions);
-    retval += fighter1.name + ": " + agentAction.name  + "\n";
-    retval += fighter2.name + ": " + patientAction.name  + "\n";
-
-    retval += actions.resolveAction(agentAction, patientAction);
-    return retval;
-}
-
-const Alice = new Fighter("Alice");
-const Bob = new Fighter ("Bob");
-console.log(guards.Poste.all_poste);
+let Alice = new Fighter({ name: "Alice", the_nth: 1 });
+let Bob = new Fighter ({ name: "Bob", the_nth: 1 });
 
 const app = express();
 const port = 8080; // default port to listen
 
 // define a route handler for the default home page
 app.get( "/", ( req, res ) => {
-    res.send( showState(Alice, Bob));
+    let [response, newFighter1, newFighter2 ] = showState(Alice, Bob)
+    res.send( response);
+    Alice = newFighter1;
+    Bob = newFighter2;
 } );
 
 // start the Express server
 app.listen( port, () => {
-    // tslint:disable-next-line:noconsole
+    // tslint:disable-next-line:no-console
     console.log( `server started at http://localhost:${ port }` );
 } );

@@ -5,7 +5,10 @@
     ],
     "jsRules": {},
     "rules": {
-        "trailing-comma": [ false ]
+        "interface-name" : [ false ],
+        "max-classes-per-file" : [5],
+        "trailing-comma": [ false ],
+        "variable-name" : [false]
     },
     "rulesDirectory": []
 }

@@ -1,18 +1,21 @@
 import { sample } from "underscore";
 import * as actions from "./actions";
-import * as guards from "./guards";
+import { Poste }  from "./guards";
+import { Person } from "./person";
 
-export class Fighter {
+export class Fighter extends Person {
 
-    public currentGuard: guards.Poste;
-    public legalPoste: guards.Poste[];
-    public knownActions: actions.Action[];
-    constructor(readonly name: string) {
-        this.legalPoste = guards.Poste.all_poste;
+    public currentGuard: Poste;
+    public readonly legalPoste: Map<string,Poste>;
+    public readonly knownActions: actions.Action[];
+    constructor({ name, the_nth }: { name: string; the_nth: number; }) {
+        super(name, the_nth)
+        this.legalPoste = Poste.all_poste;
         this.currentGuard = sample(this.legalPoste);
         this.knownActions = actions.all_actions;
     }
     public toString(): string {
-        return this.name + ": " + this.currentGuard.toString() + "\n";
+        return this.name + " " + this.the_nth + ": " + this.currentGuard.toString() + "\n";
     }
+    public die(): Fighter { return new Fighter({ name: this.name, the_nth: this.the_nth + 1 }); }
 }
